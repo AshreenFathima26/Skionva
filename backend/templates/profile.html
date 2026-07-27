@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Glowee | My Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-image">
+
+            <img src="{{ url_for('static', filename='images/user.png') }}" alt="Profile">
+
+        </div>
+
+        <h2 id="userName">Loading...</h2>
+
+        <p class="username" id="userUsername">@username</p>
+
+        <span class="status">🟢 Active User</span>
+
+        <hr>
+
+        <div class="profile-info">
+
+            <div class="info">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <span id="userEmail">Email</span>
+
+            </div>
+
+            <div class="info">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span id="joinedDate">Joined Date</span>
+
+            </div>
+
+        </div>
+
+        <div class="profile-buttons">
+
+            <button id="editBtn">
+
+                <i class="fa-solid fa-user-pen"></i>
+
+                Edit Profile
+
+            </button>
+
+            <button id="logoutBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="stats-card">
+
+        <h2>📊 My Activity</h2>
+
+        <div class="stats-grid">
+
+            <div class="stat-box">
+
+                <h3 id="analysisCount">0</h3>
+
+                <p>Total Analyses</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="avgScore">0%</h3>
+
+                <p>Average Score</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="bestScore">0%</h3>
+
+                <p>Best Score</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3 id="reportCount">0</h3>
+
+                <p>Reports</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+
+</body>
+
+</html>

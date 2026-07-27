@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skinova | Healthy Skin Begins With Understanding</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#e91e63;
+  --lightpink:#fde4ef;
+  --dark:#222;
+  --gray:#666;
+  --bg:#fff5fa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--dark);
+}
+
+/* HEADER */
+header{
+  background: var(--bg);
+  padding:10px 30px 5px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo img{
+  height:40px;
+  width:50px;
+}
+
+/* NAV */
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:30px;
+}
+
+nav ul li a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+}
+
+nav ul li a:hover{
+  color:var(--pink);
+}
+
+/* CHATBOT PAGE CONTAINER */
+.chatbot-container{
+  max-width:600px;
+  margin:50px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.chatbot-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+  padding-bottom:15px;
+  border-bottom:2px solid var(--lightpink);
+}
+
+.chatbot-header h2{
+  font-size:24px;
+  color:var(--pink);
+}
+
+.back-btn{
+  background:var(--lightpink);
+  color:var(--pink);
+  border:none;
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:var(--pink);
+  color:#fff;
+}
+
+.chat-messages{
+  height:400px;
+  overflow-y:auto;
+  padding:15px;
+  background:#f9f9f9;
+  border-radius:15px;
+  margin-bottom:15px;
+  display:flex;
+  flex-direction:column;
+}
+
+.chat-messages::-webkit-scrollbar{
+  width:6px;
+}
+
+.chat-messages::-webkit-scrollbar-track{
+  background:#f1f1f1;
+  border-radius:10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb{
+  background:var(--pink);
+  border-radius:10px;
+}
+
+.chat-msg{
+  margin-bottom:12px;
+  padding:10px 15px;
+  border-radius:12px;
+  max-width:80%;
+  word-wrap:break-word;
+}
+
+.bot-msg{
+  background:var(--lightpink);
+  color:var(--dark);
+  align-self:flex-start;
+}
+
+.user-msg{
+  background:var(--pink);
+  color:#fff;
+  align-self:flex-end;
+}
+
+.input-section{
+  display:flex;
+  gap:10px;
+}
+
+.input-section input{
+  flex:1;
+  padding:12px 15px;
+  border:2px solid var(--lightpink);
+  border-radius:25px;
+  outline:none;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.input-section input:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 8px rgba(233,30,99,0.2);
+}
+
+.send-btn{
+  padding:5px;
+  background:var(--pink);
+  border:none;
+  color:#fff;
+  border-radius:30px;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:600;
+}
+
+.send-btn:hover{
+  background:#c2185b;
+}
+
+/* FOOTER */
+.footer{
+  background:#f4f8f7;
+  padding:30px 8%;
+  text-align:center;
+  margin-top:60px;
+  color:#666;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../static/images/logo2.png" alt="Skinova">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/analyzer">Skin Analysis</a></li>
+      <li><a href="/progress">Progress</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="chatbot-container">
+  <div class="chatbot-header">
+    <h2>Glowee – AI Assistant</h2>
+    <button class="back-btn" onclick="window.location.href='/home'">Back</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot-msg">Hello! 👋 I'm Glowee, your skincare assistant. How can I help you today? Ask me anything about skincare, routines, or skin concerns!</div>
+  </div>
+
+  <div class="input-section">
+    <input type="text" id="chatInput" placeholder="Ask Glowee about skincare...">
+    <button class="send-btn" id="sendBtn">Send</button>
+  </div>
+</div>
+
+<footer class="footer">
+  © 2026 Skinova. All Rights Reserved.
+</footer>
+
+<script>
+/* Get elements */
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+
+/* Allowed skincare domain */
+const skincareKeywords = [
+  "skin","skincare","acne","pimple","dry","oily","sensitive",
+  "pigmentation","dark","spot","routine","cleanser",
+  "moisturizer","sunscreen","itch","rash","pores","glow","hydrate",
+  "wrinkle","aging","anti-aging","serum","toner","mask","spa"
+];
+
+/* Rule-based knowledge (comprehensive skincare coverage) */
+const gloweeRules = [
+  {keys:["dry","flaky","tight","dehydrated"],reply:"Dry skin needs hydration. Use a gentle cleanser and moisturize twice daily with a rich cream. Stay hydrated and avoid harsh products."},
+  {keys:["oily","greasy","shine"],reply:"Oily skin benefits from oil-free cleansers and gel-based moisturizers. Use a clay mask once weekly and avoid over-moisturizing."},
+  {keys:["acne","pimple","breakout","zit"],reply:"Acne-prone skin needs gentle care. Cleanse twice daily and avoid touching pimples. Use spot treatments with salicylic acid."},
+  {keys:["sensitive","irritated","red"],reply:"Sensitive skin reacts easily. Avoid fragrance products and patch test new items. Use hypoallergenic products and avoid harsh actives."},
+  {keys:["pigmentation","dark spot","melasma","hyperpigmentation"],reply:"Pigmentation can be managed with sun protection and consistent skincare. Use Vitamin C serum and retinol for brightening."},
+  {keys:["sunscreen","sun","uv"],reply:"Daily sunscreen (SPF 30+) protects your skin from sun damage and early aging. Apply every 2 hours if outdoors."},
+  {keys:["routine","regimen","steps"],reply:"A basic skincare routine: 1) Cleanse 2) Tone 3) Treat (serum/mask) 4) Moisturize 5) Sunscreen (AM). Customize based on your skin type."},
+  {keys:["cleanser","face wash"],reply:"Choose a cleanser suitable for your skin type. Use lukewarm water and avoid harsh soaps. Cleanse twice daily."},
+  {keys:["moisturizer","moisturizing"],reply:"Moisturizing daily helps maintain the skin barrier. Choose a moisturizer suited to your skin type (gel, cream, oil)."},
+  {keys:["glow","dull","brightness"],reply:"Healthy glow comes from hydration, good sleep, and consistent skincare. Try exfoliating 2x weekly and using vitamin C serum."},
+  {keys:["dark circle","under eye"],reply:"Dark circles are caused by fatigue and poor circulation. Use an eye cream, get enough sleep, and reduce caffeine intake."},
+  {keys:["pores","large pores","pore size"],reply:"Minimize pores with regular exfoliation, pore-minimizing serums, and hydration. Avoid pore-clogging makeup."},
+  {keys:["anti-aging","wrinkle","aging","fine line"],reply:"Anti-aging care includes sunscreen, retinol, Vitamin C, and peptides. Start preventive care early with good habits."},
+  {keys:["exfoliate","exfoliation"],reply:"Exfoliate 2-3 times weekly using chemical exfoliants (AHA/BHA) or gentle physical exfoliants. Don't over-exfoliate."},
+  {keys:["serum","treatment"],reply:"Serums are concentrated treatments. Use after cleansing and before moisturizer. Popular ingredients: Vitamin C, Hyaluronic Acid, Niacinamide."},
+  {keys:["mask","face mask"],reply:"Face masks are great weekly treatments. Clay masks for oily skin, hydrating masks for dry skin. Leave on 10-15 minutes."},
+  {keys:["combination skin"],reply:"Combination skin needs balanced care. Use a gentle cleanser and different moisturizers for different areas (gel for T-zone, cream for cheeks)."}
+];
+
+/* Add message to chat */
+function addMessage(text, type){
+  const div = document.createElement("div");
+  div.className = `chat-msg ${type === "user" ? "user-msg" : "bot-msg"}`;
+  div.innerText = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/* Get Glowee's reply */
+function getGloweeReply(message){
+  const msg = message.toLowerCase().trim();
+
+  if(!msg) return null;
+
+  if(!skincareKeywords.some(k => msg.includes(k))){
+    return "I can help only with skincare-related questions 🌿 Ask me about acne, dryness, oiliness, routines, or any skin concerns!";
+  }
+
+  for(let rule of gloweeRules){
+    for(let k of rule.keys){
+      if(msg.includes(k)) return rule.reply;
+    }
+  }
+
+  return "Following a gentle and consistent skincare routine can help maintain healthy skin. What specific concern would you like help with?";
+}
+
+/* Send message */
+function sendMessage(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+
+  addMessage(text, "user");
+  chatInput.value = "";
+
+  setTimeout(() => {
+    const reply = getGloweeReply(text);
+    if(reply) addMessage(reply, "bot");
+  }, 400);
+}
+
+/* Event listeners */
+sendBtn.addEventListener("click", sendMessage);
+chatInput.addEventListener("keypress", (e) => {
+  if(e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>

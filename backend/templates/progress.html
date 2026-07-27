@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skinova | Progress Tracking</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/progress.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Skinova">
+        </div>
+
+        <div class="nav-search">
+            <input type="text" placeholder="Search skin concerns, tips, products...">
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li><a href="/home">Home</a></li>
+
+                <li><a href="/analyzer">Skin Analysis</a></li>
+
+                <li><a href="/progress" class="active">Progress</a></li>
+
+                <li><a href="/home#blogs">Blog</a></li>
+
+                <li><a href="/home#footer">About</a></li>
+
+                <li class="profile-nav">
+
+                    <img
+                        src="{{ url_for('static', filename='images/profile.png') }}"
+                        class="profile-icon"
+                        onclick="toggleProfileMenu()"
+                    >
+
+                    <div class="profile-menu" id="profileMenu">
+
+                        <a href="#">Edit Profile</a>
+
+                        <a href="#" onclick="logout()">Logout</a>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="container">
+
+        <h1>Your Skin Progress</h1>
+
+        <p class="subtitle">
+            Track your skin improvement after every analysis.
+        </p>
+
+
+
+        <!-- ================= CHART ================= -->
+
+        <div class="chart-card">
+
+            <canvas id="progressChart"></canvas>
+
+        </div>
+
+
+
+        <!-- ================= STATS ================= -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <h2 id="overallImprovement">0%</h2>
+
+                <p>Overall Improvement</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2 id="currentHealth">0%</h2>
+
+                <p>Current Skin Health</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2 id="trackingDays">0</h2>
+
+                <p>Days Tracked</p>
+
+            </div>
+
+        </div>
+
+        <!-- ================= WEATHER ================= -->
+
+<div class="weather-card">
+
+    <div class="weather-left">
+
+        <h2>🌦 Weather Around You</h2>
+
+        <h3 id="weatherCity">Loading...</h3>
+
+        <p id="weatherCondition">-</p>
+
+    </div>
+
+    <div class="weather-right">
+
+        <img id="weatherIcon" src="" alt="Weather">
+
+        <h1 id="weatherTemp">--°C</h1>
+
+    </div>
+
+    <div class="weather-info">
+
+        <div>
+            💧 <strong>Humidity</strong><br>
+            <span id="weatherHumidity">--%</span>
+        </div>
+
+        <div>
+            ☀️ <strong>UV Index</strong><br>
+            <span id="weatherUV">--</span>
+        </div>
+
+        <div>
+            🌬 <strong>Wind</strong><br>
+            <span id="weatherWind">-- km/h</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= AI RECOMMENDATION ================= -->
+
+<!-- ================= AI RECOMMENDATION ================= -->
+
+<div class="recommendation-card">
+
+    <div class="recommendation-header">
+
+        <div>
+
+            <h2>💡 Glowee Personalized Skin Routine</h2>
+
+            <p>Your personalized skincare recommendations for today</p>
+
+        </div>
+
+        <div class="status-badge">
+
+            <span id="healthStatus">Healthy</span>
+
+        </div>
+
+    </div>
+
+    <!-- Row 1 -->
+
+    <div class="recommendation-grid">
+
+        <div class="recommend-card">
+
+            <div class="card-icon">☀️</div>
+
+            <h3>Morning</h3>
+
+            <ul id="morningRoutine"></ul>
+
+        </div>
+
+        <div class="recommend-card">
+
+            <div class="card-icon">🌥️</div>
+
+            <h3>Afternoon</h3>
+
+            <ul id="afternoonRoutine"></ul>
+
+        </div>
+
+        <div class="recommend-card">
+
+            <div class="card-icon">🌙</div>
+
+            <h3>Night</h3>
+
+            <ul id="nightRoutine"></ul>
+
+        </div>
+
+    </div>
+
+    <!-- Row 2 -->
+
+    <div class="recommendation-grid">
+
+        <div class="recommend-card">
+
+            <div class="card-icon">🥗</div>
+
+            <h3>Diet & Lifestyle</h3>
+
+            <ul id="dietRoutine"></ul>
+
+        </div>
+
+        <div class="recommend-card">
+
+            <div class="card-icon">🧴</div>
+
+            <h3>Ingredients</h3>
+
+            <div id="ingredients"></div>
+
+        </div>
+
+        <div class="recommend-card">
+
+            <div class="card-icon">⚠</div>
+
+            <h3>Precautions</h3>
+
+            <ul id="warnings"></ul>
+
+        </div>
+
+    </div>
+
+    <!-- Weekly -->
+
+    <div class="recommend-card wide-card">
+
+        <div class="card-icon">📅</div>
+
+        <h3>Weekly Care</h3>
+
+        <ul id="weeklyRoutine"></ul>
+
+    </div>
+
+    <!-- AI Summary -->
+
+    <div class="summary-card">
+
+        <div class="card-icon"></div>
+
+        <div>
+
+            <h3>AI Summary</h3>
+
+            <p id="summary"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+        <!-- ================= CONDITIONS ================= -->
+
+        <div class="condition-card">
+
+            <h2>Detected Skin Conditions</h2>
+
+            <ul id="conditionList">
+
+                <li>No records found.</li>
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- ================= HISTORY ================= -->
+
+        <div class="history-card">
+
+            <h2>Analysis History</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Health Score</th>
+
+                        <th>Conditions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="historyTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= JS ================= -->
+
+    <script src="{{ url_for('static', filename='js/progress.js') }}"></script>
+
+</body>
+
+</html>

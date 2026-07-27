@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skinova Glow AI</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+        height: 100vh;
+
+        /* 🔥 ADD BACKGROUND IMAGE HERE */
+        background-image:
+        linear-gradient(135deg, rgba(224, 196, 204, 0.85), rgba(234, 140, 193, 0.9)),
+        url("static/images/bg2.jpg");
+
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Playfair Display', serif;
+    }
+
+
+        .splash-container {
+            text-align: center;
+            margin-top: -60px;
+            animation: fadeIn 2s ease-in-out;
+
+        }
+
+        .logo {
+            width: 480px;
+            margin-top: -60px;
+            animation: zoomIn 2s ease;
+        }
+
+        .quote {
+            font-family: 'Great Vibes', cursive;
+            font-size: 35px;
+            color: #d63384;
+            margin-top: -130px;
+            margin-left: -70px;
+            animation: slideUp 2s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.6);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="splash-container">
+        <!-- Replace src with your logo path -->
+         <img src="../static/images/logo.png" alt="Skinova Logo" class="logo">
+
+
+        <p class="quote">Healthy skin begins with understanding</p>
+    </div>
+
+    <script>
+        // Redirect after 5 seconds
+        setTimeout(() => {
+            window.location.href = "/login"; // next page
+        }, 5000);
+    </script>
+
+</body>
+</html>

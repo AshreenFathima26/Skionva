@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skinova – Skin Mood Tracker</title>
+
+<style>
+:root{
+  --pink:#e91e63;
+  --lightpink:#fde4ef;
+  --dark:#222;
+  --gray:#666;
+  --bg:#fff5fa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body {
+  background:linear-gradient(to right,#ffe0ec,#fff);
+  color: var(--dark);
+}
+
+/* COMMON */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.subtitle {
+  opacity: 0.75;
+  margin-bottom: 30px;
+  color: var(--dark);
+}
+
+/* EMOJI GRID */
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  gap: 20px;
+}
+
+.emoji-card {
+  background: #f0bdd3;
+  border-radius: 22px;
+  padding: 22px 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.emoji-card:hover {
+  background: #e297b5;
+  transform: translateY(-6px);
+}
+
+.emoji {
+  font-size: 42px;
+}
+
+.label {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* RESULT BOX */
+.reco-box {
+  max-width: 500px;
+  background: #f0bdd3;
+  padding: 30px;
+  border-radius: 22px;
+  margin: 20px auto;
+}
+
+.reco-box h3 {
+  color: var(--dark);
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.reco-box ul {
+  text-align: left;
+  line-height: 1.8;
+  padding-left: 18px;
+  color: var(--dark);
+}
+
+.reco-box ul li {
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.footer-note {
+  font-size: 12px;
+  color: var(--gray);
+  margin-top: 15px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--pink), #c2185b);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.footer-note {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 15px;
+}
+
+/* HEADER */
+/* ===== NAVBAR (SAME AS HOME) ===== */
+header{
+  background:var(--bg);
+  padding:10px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo img{
+  height:40px;
+  width:50px;
+}
+
+/* SEARCH BAR */
+.nav-search{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+
+.nav-search input{
+  width:55%;
+  padding:10px 18px;
+  border-radius:25px;
+  border:1px solid #ddd;
+  outline:none;
+  font-size:14px;
+}
+
+.nav-search input:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 8px rgba(233,30,99,0.2);
+}
+
+/* NAV LINKS */
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:22px;
+  align-items:center;
+}
+
+nav ul li a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+}
+
+nav ul li a:hover{
+  color:var(--pink);
+}
+
+/* PROFILE */
+.profile-nav{
+  position:relative;
+}
+
+.profile-icon img{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.profile-menu{
+  position:absolute;
+  top:45px;
+  right:0;
+  background:#fff;
+  width:180px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  display:none;
+  overflow:hidden;
+}
+
+.profile-menu a{
+  display:block;
+  padding:12px 16px;
+  text-decoration:none;
+  color:var(--dark);
+  font-size:14px;
+}
+
+.profile-menu a:hover {
+  background: #fde4ef;
+  color: #e91e63;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header>
+  <div class="logo">
+    <img src="../static/images/logo2.png" alt="Skinova">
+  </div>
+  <div class="nav-search">
+    <input type="text" placeholder="Search skin concerns, tips, products...">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/analyzer">Skin Analysis</a></li>
+      <li><a href="/progress">Progress</a></li>
+      <li><a href="/home#blogs">Blog</a></li>
+      <li><a href="/home#footer">About</a></li>
+      <li class="profile-nav">
+        <div class="profile-icon" onclick="toggleProfileMenu()">
+          <img src="../static/images/profile.png">
+        </div>
+        <div class="profile-menu" id="profileMenu">
+          <a href="profile.html">Edit Profile</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- SKIN MOOD TRACKER PAGE (START PAGE) -->
+<div class="container" id="trackerPage">
+   <p class="subtitle"><h1>How does your skin feel today?</h1></p>
+
+  <div class="emoji-grid">
+    <div class="emoji-card" onclick="showResult('dry')">
+      <div class="emoji">😖</div>
+      <div class="label">Dry</div>
+    </div>
+
+    <div class="emoji-card" onclick="showResult('sensitive')">
+      <div class="emoji">😬</div>
+      <div class="label">Sensitive</div>
+    </div>
+
+    <div class="emoji-card" onclick="showResult('acne')">
+      <div class="emoji">😕</div>
+      <div class="label">Acne-Prone</div>
+    </div>
+
+    <div class="emoji-card" onclick="showResult('normal')">
+      <div class="emoji">😌</div>
+      <div class="label">Normal</div>
+    </div>
+
+    <div class="emoji-card" onclick="showResult('oily')">
+      <div class="emoji">😓</div>
+      <div class="label">Oily</div>
+    </div>
+
+    <div class="emoji-card" onclick="showResult('irritated')">
+      <div class="emoji">😣</div>
+      <div class="label">Irritated</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT PAGE -->
+<div class="container hidden" id="resultPage">
+  <h1 id="resultTitle"></h1>
+
+  <div class="reco-box">
+    <ul id="recommendations"></ul>
+    <div class="footer-note">
+      *Suggestions are for awareness only, not medical advice.
+    </div>
+  </div>
+
+  <button onclick="goBack()">Check Again</button>
+</div>
+
+<script>
+function showResult(type) {
+
+  const skinData = {
+    dry: {
+      title: "😖 Dry Skin Care Tips",
+      tips: [
+        "Use a gentle hydrating cleanser",
+        "Apply moisturizer twice daily",
+        "Avoid hot water while washing",
+        "Drink enough water",
+        "Use a nourishing night cream"
+      ]
+    },
+    sensitive: {
+      title: "😬 Sensitive Skin Care Tips",
+      tips: [
+        "Avoid fragrance-based products",
+        "Patch test before using new products",
+        "Use calming ingredients like aloe",
+        "Limit sun exposure",
+        "Keep skincare routine minimal"
+      ]
+    },
+    acne: {
+      title: "😕 Acne-Prone Skin Care Tips",
+      tips: [
+        "Use non-comedogenic products",
+        "Cleanse face twice daily",
+        "Avoid touching pimples",
+        "Reduce stress levels",
+        "Maintain healthy diet"
+      ]
+    },
+    normal: {
+      title: "😌 Normal Skin Care Tips",
+      tips: [
+        "Cleanse regularly",
+        "Use light moisturizer",
+        "Apply sunscreen daily",
+        "Stay hydrated",
+        "Maintain consistent routine"
+      ]
+    },
+    oily: {
+      title: "😓 Oily Skin Care Tips",
+      tips: [
+        "Use oil-free cleanser",
+        "Avoid over washing",
+        "Use gel-based moisturizer",
+        "Blot excess oil if needed",
+        "Avoid heavy creams"
+      ]
+    },
+    irritated: {
+      title: "😣 Irritated Skin Care Tips",
+      tips: [
+        "Stop using active ingredients temporarily",
+        "Use soothing skincare products",
+        "Avoid exfoliation",
+        "Protect skin from sun",
+        "Give skin time to recover"
+      ]
+    }
+  };
+
+  document.getElementById("trackerPage").classList.add("hidden");
+  document.getElementById("resultPage").classList.remove("hidden");
+
+  document.getElementById("resultTitle").innerText = skinData[type].title;
+
+  const list = document.getElementById("recommendations");
+  list.innerHTML = "";
+
+  skinData[type].tips.forEach(tip => {
+    const li = document.createElement("li");
+    li.textContent = tip;
+    list.appendChild(li);
+  });
+}
+
+function goBack() {
+  document.getElementById("resultPage").classList.add("hidden");
+  document.getElementById("trackerPage").classList.remove("hidden");
+}
+
+function toggleProfileMenu() {
+  const menu = document.getElementById('profileMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+function logout() {
+  localStorage.clear();
+  window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>

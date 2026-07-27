@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skinova | Skin Analysis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#e91e63;
+  --lightpink:#fde4ef;
+  --dark:#222;
+  --gray:#666;
+  --bg:#fff5fa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--dark);
+}
+
+/* HEADER */
+/* ===== NAVBAR (SAME AS HOME) ===== */
+header{
+  background:var(--bg);
+  padding:10px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo img{
+  height:40px;
+  width:50px;
+}
+
+/* SEARCH BAR */
+.nav-search{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+
+.nav-search input{
+  width:55%;
+  padding:10px 18px;
+  border-radius:25px;
+  border:1px solid #ddd;
+  outline:none;
+  font-size:14px;
+}
+
+.nav-search input:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 8px rgba(233,30,99,0.2);
+}
+
+/* NAV LINKS */
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:22px;
+  align-items:center;
+}
+
+nav ul li a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+}
+
+nav ul li a:hover{
+  color:var(--pink);
+}
+
+/* PROFILE */
+.profile-nav{
+  position:relative;
+}
+
+.profile-icon img{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.profile-menu{
+  position:absolute;
+  top:45px;
+  right:0;
+  background:#fff;
+  width:180px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  display:none;
+  overflow:hidden;
+}
+
+.profile-menu a{
+  display:block;
+  padding:12px 16px;
+  text-decoration:none;
+  color:var(--dark);
+  font-size:14px;
+}
+
+.profile-menu a:hover{
+  background:var(--lightpink);
+  color:var(--pink);
+}
+
+/* MAIN */
+.container{
+  max-width:1100px;
+  margin:50px auto;
+  background:#fff;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  overflow:hidden;
+}
+
+.left{
+  background:var(--lightpink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+}
+
+.left img{
+  width:100%;
+  max-width:380px;
+  border-radius:25px;
+  object-fit:cover;
+}
+
+
+.right{
+  padding:40px;
+}
+
+.right h2{
+  color:var(--pink);
+  margin-bottom:10px;
+}
+
+.right p{
+  color:var(--gray);
+  margin-bottom:25px;
+}
+
+.instructions{
+  margin-bottom:30px;
+}
+
+.instruction{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:var(--lightpink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--pink);
+  font-weight:600;
+}
+
+.buttons{
+  display:flex;
+  gap:20px;
+}
+
+button{
+  padding:14px 24px;
+  border:none;
+  border-radius:30px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.camera-btn{
+  background:var(--pink);
+  color:#fff;
+}
+
+.upload-btn{
+  background:#fff;
+  border:2px solid var(--pink);
+  color:var(--pink);
+}
+
+.proceed-container{
+  display:flex;
+  justify-content:center;
+  margin:25px 0;
+}
+
+.proceed-btn{
+  display:none;
+  padding:14px 32px;
+  background:linear-gradient(135deg, var(--pink), #c2185b);
+  color:#fff;
+  border-radius:30px;
+  font-size:16px;
+  font-weight:600;
+}
+
+#video, #canvas, #fileInput{
+  display:none;
+}
+/* HIDDEN */
+#video,#canvas,#fileInput{
+  display:none;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+
+nav ul li a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+}
+
+nav ul li a:hover{
+  color:var(--pink);
+}
+
+nav ul li{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.profile-icon{
+  font-size:16px;
+  color:var(--gray);
+  transition:0.3s;
+}
+
+nav ul li:hover .profile-icon{
+  color:var(--pink);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header>
+  <div class="logo">
+    <img src="../static/images/logo2.png">
+  </div>
+
+  <div class="nav-search">
+    <input type="text" placeholder="Search skin concerns, tips, products...">
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/analyzer">Skin Analysis</a></li>
+      <li><a href="/progress">Progress</a></li>
+       <li><a href="/home#blogs">Blog</a></li>
+      <li><a href="/home#footer">About</a></li>
+
+      <li class="profile-nav">
+        <div class="profile-icon" onclick="toggleProfileMenu()">
+          <img src="../static/images/profile.png">
+        </div>
+        <div class="profile-menu" id="profileMenu">
+          <a href="profile.html">Edit Profile</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+
+  <div class="left">
+    <img id="displayImage" src="{{ url_for('static', filename='images/woman-scan.png') }}">
+  </div>
+
+  <div class="right">
+    <h2>Take selfie to get your skin score</h2>
+    <p>Follow these simple steps for accurate skin analysis</p>
+
+    <div class="instructions">
+      <div class="instruction"><div class="icon">1</div>Remove eyeglasses</div>
+      <div class="instruction"><div class="icon">2</div>Remove makeup</div>
+      <div class="instruction"><div class="icon">3</div>Good lighting & face camera</div>
+    </div>
+
+    <div class="buttons">
+      <button class="camera-btn" onclick="openCamera()">Use Camera</button>
+      <button class="upload-btn" onclick="uploadImage()">Upload Photo</button>
+    </div>
+
+    <video id="video" autoplay></video>
+    <button class="camera-btn" id="captureBtn" style="margin-top:20px;display:none" onclick="capturePhoto()">Capture Photo</button>
+
+    <input type="file" id="fileInput" accept="image/*">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+
+<div class="proceed-container">
+  <button class="proceed-btn" id="proceedBtn" onclick="goToScore()">Proceed</button>
+</div>
+
+<script>
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+let capturedImages = [];
+
+function captureFrame(canvas) {
+  return canvas.toDataURL("image/png");
+}
+
+async function captureRealtimeFrames(video, canvas) {
+  const ctx = canvas.getContext("2d");
+
+  capturedImages = [];
+
+  for (let i = 0; i < 3; i++) {
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    capturedImages.push(captureFrame(canvas));
+    await new Promise(r => setTimeout(r, 500)); // 0.5 sec delay
+  }
+
+  sendRealtimeAnalysis();
+}
+function sendRealtimeAnalysis() {
+  fetch("/analyze-skin-realtime", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      images: capturedImages
+    })
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      localStorage.setItem("skinResult", JSON.stringify(result));
+      window.location.href = "/score";
+    }
+  });
+}
+
+const displayImage = document.getElementById("displayImage");
+const captureBtn = document.getElementById("captureBtn");
+const fileInput = document.getElementById("fileInput");
+const proceedBtn = document.getElementById("proceedBtn");
+
+function openCamera(){
+   localStorage.removeItem("skinImage");
+  localStorage.removeItem("skinResult");
+  navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+    video.style.display = "block";
+    captureBtn.style.display = "inline-block";
+  });
+}
+
+async function capturePhoto(){
+  realtimeFrames = [];
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  // 🔥 Capture 3 frames automatically
+  for(let i = 0; i < 3; i++){
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    realtimeFrames.push(canvas.toDataURL("image/png"));
+    await new Promise(r => setTimeout(r, 500));
+  }
+
+  // Use last frame for display + score page
+  const finalImage = realtimeFrames[2];
+
+  displayImage.src = finalImage;
+
+  // 🔥 REQUIRED: score page depends on this
+  localStorage.setItem("skinImage", finalImage);
+
+  // Store real-time frames
+  localStorage.setItem(
+    "realtimeFrames",
+    JSON.stringify(realtimeFrames)
+  );
+
+  // Stop camera
+  video.srcObject.getTracks().forEach(t => t.stop());
+  video.style.display = "none";
+  captureBtn.style.display = "none";
+
+  // Show proceed only after everything is saved
+  proceedBtn.style.display = "inline-block";
+}
+
+
+
+function uploadImage(){
+    localStorage.removeItem("skinImage");
+  localStorage.removeItem("skinResult");
+  fileInput.click();
+}
+
+fileInput.addEventListener("change",()=>{
+  const file = fileInput.files[0];
+  if(file){
+    const reader = new FileReader();
+   reader.onload = (e) => {
+      displayImage.src = e.target.result;
+      localStorage.setItem("skinImage", e.target.result);
+
+      // 🔥 REAL-TIME MODE: store 3 frames
+      localStorage.setItem(
+        "realtimeFrames",
+        JSON.stringify([
+          e.target.result,
+          e.target.result,
+          e.target.result
+        ])
+      );
+
+      proceedBtn.style.display = "inline-block";
+    };
+
+    reader.readAsDataURL(file);
+  }
+});
+
+function goToScore(){
+  localStorage.setItem("analysisMode", "realtime");
+  window.location.href="/score";
+}
+
+function toggleProfileMenu(){
+  const menu=document.getElementById("profileMenu");
+  menu.style.display=menu.style.display==="block"?"none":"block";
+}
+
+document.addEventListener("click",e=>{
+  const profile=document.querySelector(".profile-nav");
+  if(profile&&!profile.contains(e.target)){
+    document.getElementById("profileMenu").style.display="none";
+  }
+});
+
+function logout(){
+  localStorage.clear();
+  window.location.href="/login";
+}
+</script>
+
+</body>
+</html>

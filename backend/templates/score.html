@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Skinova | Skin Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+    <!-- Score CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/score.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Skinova Logo">
+    </div>
+
+    <div class="nav-search">
+        <input type="text" placeholder="Search skin concerns, tips, products...">
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/analyzer">Skin Analysis</a></li>
+            <li><a href="/progress">Progress</a></li>
+            <li><a href="/home#blogs">Blog</a></li>
+            <li><a href="/home#footer">About</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<div class="wrapper">
+  <div class="bg-animation">
+
+    <span class="hex h1"></span>
+    <span class="hex h2"></span>
+    <span class="hex h3"></span>
+    <span class="hex h4"></span>
+    <span class="hex h5"></span>
+    <span class="hex h6"></span>
+
+    <span class="hex h7"></span>
+    <span class="hex h8"></span>
+    <span class="hex h9"></span>
+    <span class="hex h10"></span>
+    <span class="hex h11"></span>
+    <span class="hex h12"></span>
+
+</div>
+
+    <div class="face-wrapper">
+    
+    <div class="face-dashboard">
+
+    <div class="left-meters"></div>
+
+    <div class="image-box">
+        <img id="uploadedImage">
+    </div>
+
+    <div class="right-meters"></div>
+    <canvas id="faceCanvas"></canvas>
+    <canvas id="connectorCanvas"></canvas>
+
+</div>
+
+    
+
+</div>
+
+    <div id="resultContainer"></div>
+
+    <div style="width:550px; margin:40px auto;">
+    <canvas id="skinPieChart"></canvas>
+    
+</div>
+<div id="actionCardContainer"></div>
+
+
+
+</div>
+
+<button class="next-btn" onclick="window.location.href='/progress'">
+    Next
+</button>
+
+<!-- Score JS -->
+<script src="{{ url_for('static', filename='js/score.js') }}"></script>
+
+<!-- Download Report Popup -->
+
+<div id="reportPopup" class="popup-overlay">
+
+    <div class="popup-box">
+
+        <h2>Download Skinova Report</h2>
+
+        <input type="text"
+               id="reportName"
+               placeholder="Enter Name">
+
+        <input type="number"
+               id="reportAge"
+               placeholder="Enter Age">
+
+        <select id="reportGender">
+
+            <option value="">Select Gender</option>
+
+            <option>Male</option>
+
+            <option>Female</option>
+
+            <option>Other</option>
+
+        </select>
+
+        <div class="popup-buttons">
+
+            <button onclick="closePopup()">
+                Cancel
+            </button>
+
+            <button onclick="downloadReport()">
+                Generate Report
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

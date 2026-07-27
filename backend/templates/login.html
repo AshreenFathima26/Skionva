@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skinova – Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffe4ec,#ffffff);
+}
+
+.container{
+    width:420px;
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#222;
+    font-weight:600;
+}
+
+.input-box{
+    margin-bottom:18px;
+}
+
+.input-box input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:15px;
+}
+
+.password-box{
+    position:relative;
+}
+
+.password-box span{
+    position:absolute;
+    right:15px;
+    top:15px;
+    cursor:pointer;
+    font-size:14px;
+    color:#888;
+}
+
+.forgot{
+    text-align:left;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.forgot a{
+    color:#555;
+    text-decoration:underline;
+}
+
+.btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    background:#e6e6e6;
+    color:#999;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.btn.active{
+    background:#d63384;
+    color:#fff;
+}
+
+.divider{
+    text-align:center;
+    margin:25px 0;
+    position:relative;
+    font-size:14px;
+    color:#999;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+    position:absolute;
+    width:40%;
+    height:1px;
+    background:#ddd;
+    top:50%;
+}
+
+.divider::before{left:0;}
+.divider::after{right:0;}
+
+.links{
+    text-align:center;
+    font-size:14px;
+}
+
+.links span{
+    color:#d63384;
+    cursor:pointer;
+    font-weight:500;
+}
+
+.terms{
+    text-align:center;
+    font-size:12px;
+    margin-top:15px;
+    color:#555;
+}
+
+.terms a{
+    color:#000;
+    text-decoration:underline;
+}
+
+.hidden{
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div id="loginBox">
+        <h2>Log In</h2>
+
+        <div class="input-box">
+            <input type="email" id="loginEmail" placeholder="Email">
+        </div>
+
+        <div class="input-box password-box">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <span onclick="togglePassword('loginPassword')">Show</span>
+        </div>
+
+        <div class="forgot">
+            <a href="#">Reset password</a>
+        </div>
+
+        <button class="btn active" onclick="login()">Log In With Email</button>
+
+        <div class="divider">or</div>
+
+        <div class="links">
+            Don’t have an account? <span onclick="showSignup()">Sign Up</span>
+        </div>
+
+        <div class="terms">
+            By logging in, you agree to <a href="#">Skinova’s T&amp;Cs</a>
+        </div>
+    </div>
+
+    <!-- SIGNUP -->
+<div id="signupBox" class="hidden">
+
+<h2>Create Account</h2>
+
+<div class="input-box">
+<input type="text" id="signupUsername" placeholder="Username">
+</div>
+
+<div class="input-box">
+<input type="email" id="signupEmail" placeholder="Email">
+</div>
+
+<div class="input-box">
+<input type="number" id="signupAge" placeholder="Age">
+</div>
+
+<div class="input-box">
+<select id="signupGender" style="width:100%;padding:14px;border-radius:12px;border:1px solid #ccc;">
+<option value="">Select Gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+</select>
+</div>
+
+<div class="input-box password-box">
+<input type="password" id="signupPassword" placeholder="Password">
+<span onclick="togglePassword('signupPassword')">Show</span>
+</div>
+
+<div class="input-box password-box">
+<input type="password" id="signupRePassword" placeholder="Re-enter Password">
+<span onclick="togglePassword('signupRePassword')">Show</span>
+</div>
+
+<button class="btn active" onclick="signup()">Create Account</button>
+
+<div class="links" style="margin-top:15px;">
+Already have an account? <span onclick="showLogin()">Log In</span>
+</div>
+
+</div>
+
+<!-- UI helper JS (normal script OK) -->
+<script>
+function togglePassword(id){
+    const input=document.getElementById(id);
+    input.type=input.type==="password"?"text":"password";
+}
+
+function showSignup(){
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("signupBox").classList.remove("hidden");
+}
+
+function showLogin(){
+    document.getElementById("signupBox").classList.add("hidden");
+    document.getElementById("loginBox").classList.remove("hidden");
+}
+</script>
+
+<!-- 🔥 FIREBASE AUTH (MODULE) -->
+<script type="module" src="{{ url_for('static', filename='js/auth.js') }}"></script>
+
+
+</body>
+</html>
