@@ -1,2 +1,8 @@
 pymongo
 gunicorn
+Flask
+firebase-admin
+pdfkit
+Pillow
+numpy
+opencv-python-headless
